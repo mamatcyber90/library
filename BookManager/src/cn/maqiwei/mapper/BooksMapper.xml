@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.maqiwei.mapper.BooksMapper">
+
+    <!--<select id="selectBookList" resultType="cn.maqiwei.bean.Book">-->
+    <!--select * from book-->
+    <!--</select>-->
+
+
+    <select id="bookCountByQueryVo" parameterType="QueryVo"
+            resultType="Integer">
+        select count(1) from book
+        <where>
+            <if test="bkName != null and bkName != ''">
+                bookname like "%"#{bkName}"%"
+            </if>
+        </where>
+    </select>
+
+    <select id="selectbookListByQueryVo" parameterType="QueryVo"
+            resultType="Book">
+        select * from book
+        <where>
+            <if test="bkName != null and bkName != ''">
+                bookname like "%"#{bkName}"%"
+            </if>
+            AND b_count>0
+        </where>
+        limit #{startRow},#{size}
+    </select>
+
+    <select id="checkUser" parameterType="Student" resultType="Integer">
+        SELECT COUNT(*) FROM student WHERE id=#{id} AND name=#{name}
+    </select>
+
+    <!--<select id="selectBookByName" parameterType="String" resultType="Book">-->
+    <!--SELECT * FROM book WHERE bookname=#{v}-->
+    <!--</select>-->
+
+    <!--通过书名查询书籍信息-->
+    <select id="selectBookInfoByName" parameterType="String" resultType="Book">
+        SELECT * FROM book WHERE bookname=#{name}
+    </select>
+
+    <!--确认借阅 //书籍余量减1-->
+    <update id="lendBook" parameterType="Book">
+        update book set b_count=b_count-1 WHERE bookname=#{bookname}
+    </update>
+    <insert id="insertInfo" parameterType="InsertInfo">
+        insert into info (id,bookname,type,Con) VALUES (#{id},#{book.bookname},#{book.type},"1")
+    </insert>
+
+    <!--通过id查询学生-->
+    <select id="selectStudentById" parameterType="String" resultType="Student">
+        SELECT * FROM student WHERE id=#{id}
+    </select>
+
+    <select id="selectInfotById" parameterType="String" resultType="Info">
+        SELECT * FROM info WHERE id=#{id}
+    </select>
+
+    <select id="selectLendInfoByBookName" parameterType="InsertInfo" resultType="Integer">
+        select COUNT(bookname) FROM info
+         WHERE id=#{id}
+         and bookname=#{book.bookname}
+    </select>
+
+</mapper>

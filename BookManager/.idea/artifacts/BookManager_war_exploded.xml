@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="BookManager:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/BookManager_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="BookManager" />
+          <element id="jpa-descriptors" facet="BookManager/jpa/JPA" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="JPA 2.0-2.0" />
+          <element id="library" level="project" name="commons-dbcp-1.2.2" />
+          <element id="library" level="project" name="commons-io-2.4" />
+          <element id="library" level="project" name="json-20131018" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="BookManager/web/Web" />
+    </root>
+  </artifact>
+</component>
